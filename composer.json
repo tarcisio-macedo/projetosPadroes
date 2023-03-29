@@ -1,0 +1,20 @@
+{
+    "name": "tarcisio/projetos-padroes",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Tarcisio\\ProjetosPadroes\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "tarcisio-macedo",
+            "email": "52299091+tarcisio-macedo@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "ark4ne/xl-reader": "^1.0",
+        "phpoffice/phpspreadsheet": "^1.25",
+        "symfony/http-client": "^6.1"
+    }
+}

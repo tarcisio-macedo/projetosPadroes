@@ -1,6 +1,7 @@
 {
     "name": "tarcisio/projetos-padroes",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Tarcisio\\ProjetosPadroes\\": "src/"

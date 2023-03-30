@@ -9,7 +9,7 @@ namespace Tarcisio\ProjetosPadroes\php\_outros;
 // class formatacaoTexto
 trait formatacaoTexto
 {
-    function formatarTexto($textoOriginal): string
+    function formatarTexto($textoOriginal)
     {
         $textoAuxiliar = $textoOriginal;
         

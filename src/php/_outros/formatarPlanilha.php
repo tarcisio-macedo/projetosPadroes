@@ -8,8 +8,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 // $dirArquivoPlanilhaOrigem = ''; // Arquivo XLSX
-// $classe = new formatarPlanilha($dirArquivoPlanilhaOrigem, '', 'G', false);
-// $classe = new formatarPlanilha($dirArquivoPlanilhaOrigem, '', 'G', true);
+// $classe = new formatarPlanilha($dirArquivoPlanilhaOrigem, '', 'G', false, true);
+// $classe = new formatarPlanilha($dirArquivoPlanilhaOrigem, '', 'G', true, true);
 // $classe->formatar();
 
 class formatarPlanilha
@@ -20,14 +20,18 @@ class formatarPlanilha
     public string $dirArquivoPlanilhaDestino;
     public string $guia;
     public string $coluna;
-    public string $subscrever;
+    public bool $subscrever;
+    public bool $retirarTagsHTML;
 
-    function __construct($dirArquivoPlanilhaOrigem, $guia, $coluna, bool $subscrever)
+    
+
+    function __construct($dirArquivoPlanilhaOrigem, $guia, $coluna, bool $subscrever, bool $retirarTagsHTML)
     {
         $this->dirArquivoPlanilhaOrigem = $dirArquivoPlanilhaOrigem;
         $this->guia = $guia;
         $this->coluna = $coluna;
         $this->subscrever = $subscrever;
+        $this->retirarTagsHTML = $retirarTagsHTML;
 
         if ($this->subscrever)
         {
@@ -62,7 +66,17 @@ class formatarPlanilha
                 {
                     $celula = $this->coluna . $linha;
                     $textoCelulaOriginal = $sheet->getCell($celula)->getValue();
-                    $textoCelulaFormatado = $this->formatarTexto($textoCelulaOriginal);
+
+                    if ($this->retirarTagsHTML)
+                    {
+                        // $textoCelulaFormatado = $this->formatarTexto($textoCelulaOriginal);
+                        $textoCelulaFormatado1 = $this->retirarTagsHTML($textoCelulaOriginal);
+                        $textoCelulaFormatado = $this->formatarTexto($textoCelulaFormatado1);
+                    }
+                    else
+                    {
+                        $textoCelulaFormatado = $this->formatarTexto($textoCelulaOriginal);
+                    }
                     
                     if ($textoCelulaOriginal != $textoCelulaFormatado)
                     {

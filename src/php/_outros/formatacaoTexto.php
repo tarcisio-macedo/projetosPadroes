@@ -123,7 +123,7 @@ trait formatacaoTexto
         }
     }
 
-    function TextoHtml($textoOriginal)
+    function retirarTagsHTML($textoOriginal)
     {
         $texto = $textoOriginal;
         
@@ -138,7 +138,12 @@ trait formatacaoTexto
             {
                 if ($texto != "<Vazio>")
                 {
-                    $textoConvertido = $this->converterTextoHtml($texto);
+                    $texto = str_replace("<p>", "<p>" . "<br>", $texto);
+                    $texto = str_replace("</p>", "</p>" . "<br>", $texto);
+                    $texto = str_replace("</td><td ", "</td>" . "<p>&nbsp;-&nbsp;</p>" . "<td ", $texto);
+                    $texto = str_replace("<br />", "<br>", $texto);
+                    $textoConvertido = strip_tags($texto);
+
                     $texto = $textoConvertido;
                 }
             }
@@ -226,26 +231,5 @@ trait formatacaoTexto
         }
         
         return $texto;
-    }
-
-    function converterTextoHtml($htmlOriginal)
-    {
-        $html = $htmlOriginal;
-        //Pular linha entre Tags
-            // <p>
-                $html = str_replace("<p>", "<p>" . "<br>", $html);
-                
-                $html = str_replace("</p>", "</p>" . "<br>", $html);
-            
-            // <table>
-                $html = str_replace("</td><td ", "</td>" . "<p>&nbsp;-&nbsp;</p>" . "<td ", $html);
-
-                $html = str_replace("<br />", "<br>", $html);
-                
-                $textoConvertido = strip_tags($html);
-
-        $textoConvertido = $this->formatarTexto($textoConvertido);
-            
-        return $textoConvertido;
     }
 }

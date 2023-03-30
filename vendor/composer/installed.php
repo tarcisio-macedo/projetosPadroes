@@ -3,7 +3,7 @@
         'name' => 'tarcisio/projetos-padroes',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '6ab5da43eebe849d27488003b28f61db7dbb7b99',
+        'reference' => 'fe8f3f790f75fb3c74c482727857ba9724f6a95d',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -190,7 +190,7 @@
         'tarcisio/projetos-padroes' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '6ab5da43eebe849d27488003b28f61db7dbb7b99',
+            'reference' => 'fe8f3f790f75fb3c74c482727857ba9724f6a95d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

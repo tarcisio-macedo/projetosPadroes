@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0ee7b91d6fdbc6a9fa981e47944cbdb",
+    "content-hash": "8420d52c529b000c29182bc3d1f26ba1",
     "packages": [
         {
             "name": "ark4ne/xl-reader",

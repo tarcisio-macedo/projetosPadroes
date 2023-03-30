@@ -131,7 +131,7 @@ trait formatacaoTexto
         {
             if (str_contains($texto, "&lt;") && str_contains($texto, "&gt;"))
             {
-                $texto = str_replace(str_replace($texto, "&lt;", "<"), "&gt;", ">");
+                $texto = str_replace("&gt;", ">", str_replace("&lt;", "<", $texto));
             }
 
             if (str_contains($texto, "<") && str_contains($texto, ">"))
@@ -150,79 +150,79 @@ trait formatacaoTexto
         }
         
         // if (!string.IsNullOrEmpty($texto)) {
-        
+
         if (!empty($texto) && $texto != null)
         {
-            $texto = str_replace($texto, "&nbsp;", " ");
+            $texto = str_replace('&nbsp;', " ", $texto);
 
-            $texto = str_replace($texto, "&#193;", "Á");
-            $texto = str_replace($texto, "&Aacute;", "Á");
-            $texto = str_replace($texto, "&aacute;", "á");
+            $texto = str_replace("&#193;", "Á", $texto);
+            $texto = str_replace("&Aacute;", "Á", $texto);
+            $texto = str_replace("&aacute;", "á", $texto);
             
-            $texto = str_replace($texto, "&#192;", "À");
-            $texto = str_replace($texto, "&Agrave;", "À");
-            $texto = str_replace($texto, "&agrave;", "à");
-            $texto = str_replace($texto, "&#195;", "Ã");
-            $texto = str_replace($texto, "&Atilde;", "Ã");
-            $texto = str_replace($texto, "&atilde;", "ã");
-            $texto = str_replace($texto, "&#194;", "Â");
-            $texto = str_replace($texto, "&Aacute;", "Â");
-            $texto = str_replace($texto, "&acirc;", "â");
+            $texto = str_replace("&#192;", "À", $texto);
+            $texto = str_replace("&Agrave;", "À", $texto);
+            $texto = str_replace("&agrave;", "à", $texto);
+            $texto = str_replace("&#195;", "Ã", $texto);
+            $texto = str_replace("&Atilde;", "Ã", $texto);
+            $texto = str_replace("&atilde;", "ã", $texto);
+            $texto = str_replace("&#194;", "Â", $texto);
+            $texto = str_replace("&Aacute;", "Â", $texto);
+            $texto = str_replace("&acirc;", "â", $texto);
 
-            $texto = str_replace($texto, "&#201;", "É");
-            $texto = str_replace($texto, "&Eacute;", "É");
-            $texto = str_replace($texto, "&eacute;", "é");
-            $texto = str_replace($texto, "&#202;", "Ê");
-            $texto = str_replace($texto, "&Ecirc;", "Ê");
-            $texto = str_replace($texto, "&ecirc;", "ê");
+            $texto = str_replace("&#201;", "É", $texto);
+            $texto = str_replace("&Eacute;", "É", $texto);
+            $texto = str_replace("&eacute;", "é", $texto);
+            $texto = str_replace("&#202;", "Ê", $texto);
+            $texto = str_replace("&Ecirc;", "Ê", $texto);
+            $texto = str_replace("&ecirc;", "ê", $texto);
 
-            $texto = str_replace($texto, "&#205;", "Í");
-            $texto = str_replace($texto, "&Iacute;", "Í");
-            $texto = str_replace($texto, "&iacute;", "í");
+            $texto = str_replace("&#205;", "Í", $texto);
+            $texto = str_replace("&Iacute;", "Í", $texto);
+            $texto = str_replace("&iacute;", "í", $texto);
 
-            $texto = str_replace($texto, "&#212;", "Ô");
-            $texto = str_replace($texto, "&Ocirc;", "Ô");
-            $texto = str_replace($texto, "&ocirc;", "ô");
-            $texto = str_replace($texto, "&#213;", "Õ");
-            $texto = str_replace($texto, "&Otilde;", "Õ");
-            $texto = str_replace($texto, "&otilde;", "õ");
-            $texto = str_replace($texto, "&#211;", "Ó");
-            $texto = str_replace($texto, "&Oacute;", "Ó");
-            $texto = str_replace($texto, "&oacute;", "ó");
+            $texto = str_replace("&#212;", "Ô", $texto);
+            $texto = str_replace("&Ocirc;", "Ô", $texto);
+            $texto = str_replace("&ocirc;", "ô", $texto);
+            $texto = str_replace("&#213;", "Õ", $texto);
+            $texto = str_replace("&Otilde;", "Õ", $texto);
+            $texto = str_replace("&otilde;", "õ", $texto);
+            $texto = str_replace("&#211;", "Ó", $texto);
+            $texto = str_replace("&Oacute;", "Ó", $texto);
+            $texto = str_replace("&oacute;", "ó", $texto);
             
-            $texto = str_replace($texto, "&#218;", "Ú");
-            $texto = str_replace($texto, "&Uacute;", "Ú");
-            $texto = str_replace($texto, "&uacute;", "ú");
+            $texto = str_replace("&#218;", "Ú", $texto);
+            $texto = str_replace("&Uacute;", "Ú", $texto);
+            $texto = str_replace("&uacute;", "ú", $texto);
             
-            $texto = str_replace($texto, "&#220;", "Ü");
-            $texto = str_replace($texto, "&Uuml;", "Ü");
-            $texto = str_replace($texto, "&uuml;", "ü");
+            $texto = str_replace("&#220;", "Ü", $texto);
+            $texto = str_replace("&Uuml;", "Ü", $texto);
+            $texto = str_replace("&uuml;", "ü", $texto);
 
 
 
-            $texto = str_replace($texto, "&#199;", "Ç");
-            $texto = str_replace($texto, "&Ccedil;", "Ç");
-            $texto = str_replace($texto, "&ccedil;", "ç");
+            $texto = str_replace("&#199;", "Ç", $texto);
+            $texto = str_replace("&Ccedil;", "Ç", $texto);
+            $texto = str_replace("&ccedil;", "ç", $texto);
 
-            $texto = str_replace($texto, "&ordf;", "ª");
-            $texto = str_replace($texto, "&#170;", "ª");
+            $texto = str_replace("&ordf;", "ª", $texto);
+            $texto = str_replace("&#170;", "ª", $texto);
 
 
 
-            $texto = str_replace($texto, "&deg;", "º");
-            $texto = str_replace($texto, "&#186;", "º");
-            $texto = str_replace($texto, "&ordm;", "º");
+            $texto = str_replace("&deg;", "º", $texto);
+            $texto = str_replace("&#186;", "º", $texto);
+            $texto = str_replace("&ordm;", "º", $texto);
 
-            $texto = str_replace($texto, "&sect;", "§");
+            $texto = str_replace("&sect;", "§", $texto);
             
-            $texto = str_replace($texto, "&ndash;", "-");
+            $texto = str_replace("&ndash;", "-", $texto);
 
-            $texto = str_replace($texto, "&rsquo;", "'");
-            $texto = str_replace($texto, "&acute;", "'");
+            $texto = str_replace("&rsquo;", "'", $texto);
+            $texto = str_replace("&acute;", "'", $texto);
             
             
-            $texto = str_replace($texto, "&ldquo;", "\"");
-            $texto = str_replace($texto, "&rdquo;", "\"");
+            $texto = str_replace("&ldquo;", "\"", $texto);
+            $texto = str_replace("&rdquo;", "\"", $texto);
         }
         
         if ($texto == null)

@@ -232,4 +232,24 @@ trait formatacaoTexto
         
         return $texto;
     }
+
+    function converterCRLF($textoOriginal)
+    {
+        $texto = $textoOriginal;
+        
+        if (!empty($texto) && $texto != null)
+        {
+            if (str_contains(strtolower($texto), "|crlf|"))
+            {
+                $texto = str_replace("|crlf|", "\n", str_replace("|CRLF|", "\n",$texto));
+            }
+        }
+            
+        if ($texto == null)
+        {
+            $texto = "";
+        }
+        
+        return $texto;
+    }
 }

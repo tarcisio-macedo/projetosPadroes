@@ -19,19 +19,20 @@ class formatarPlanilha
     public string $dirArquivoPlanilhaOrigem;
     public string $dirArquivoPlanilhaDestino;
     public string $guia;
-    public string $coluna;
+    public array $colunas;
     public bool $subscrever;
     public bool $retirarTagsHTML;
+    public bool $converterCRLF;
 
-    
 
-    function __construct($dirArquivoPlanilhaOrigem, $guia, $coluna, bool $subscrever, bool $retirarTagsHTML)
+    function __construct($dirArquivoPlanilhaOrigem, $guia, array $colunas, bool $subscrever, bool $retirarTagsHTML, bool $converterCRLF)
     {
         $this->dirArquivoPlanilhaOrigem = $dirArquivoPlanilhaOrigem;
         $this->guia = $guia;
-        $this->coluna = $coluna;
+        $this->colunas = $colunas;
         $this->subscrever = $subscrever;
         $this->retirarTagsHTML = $retirarTagsHTML;
+        $this->converterCRLF = $converterCRLF;
 
         if ($this->subscrever)
         {
@@ -61,31 +62,40 @@ class formatarPlanilha
                 }
                 
                 $ultLinha = $sheet->getHighestRow();
-    
-                for ($linha=2; $linha < $ultLinha; $linha++)
-                {
-                    $celula = $this->coluna . $linha;
-                    $textoCelulaOriginal = $sheet->getCell($celula)->getValue();
+                
 
-                    if ($this->retirarTagsHTML)
+                foreach ($this->colunas as $coluna)
+                {
+                    for ($linha=2; $linha < $ultLinha; $linha++)
                     {
-                        // $textoCelulaFormatado = $this->formatarTexto($textoCelulaOriginal);
-                        $textoCelulaFormatado1 = $this->retirarTagsHTML($textoCelulaOriginal);
-                        $textoCelulaFormatado = $this->formatarTexto($textoCelulaFormatado1);
-                    }
-                    else
-                    {
-                        $textoCelulaFormatado = $this->formatarTexto($textoCelulaOriginal);
-                    }
-                    
-                    if ($textoCelulaOriginal != $textoCelulaFormatado)
-                    {
-                        $sheet->setCellValue($celula, $textoCelulaFormatado);
+                        $celula = $coluna . $linha;
+                        $textoCelulaOriginal = $sheet->getCell($celula)->getValue();
+    
+                        $textoAuxiliar = $textoCelulaOriginal;
+    
+                        if ($this->retirarTagsHTML)
+                        {
+                            // $textoCelulaFormatado = $this->formatarTexto($textoAuxiliar);
+                            $textoAuxiliar = $this->retirarTagsHTML($textoAuxiliar);
+                        }
+                        if ($this->converterCRLF)
+                        {
+                            $textoAuxiliar = $this->converterCRLF($textoAuxiliar);
+                        }
+                        
+                        $textoAuxiliar = $this->formatarTexto($textoAuxiliar);
+    
+                        if ($textoCelulaOriginal != $textoAuxiliar)
+                        {
+                            $sheet->setCellValue($celula, $textoAuxiliar);
+                        }
                     }
                 }
-    
+
                 $writer = new Xlsx($spreadsheet);
                 $writer->save($this->dirArquivoPlanilhaDestino);
+                
+                echo 'Formatado' . PHP_EOL;
             }
             else
             {

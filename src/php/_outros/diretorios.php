@@ -4,17 +4,11 @@ namespace Tarcisio\ProjetosPadroes\php\_outros;
 
 class diretorios
 {
-    public string $namespace;
-    public string $namespacePhp;
-    public string $namespacePhpJson;
-    public string $namespaceJson;
-    public string $namespaceResultados;
-    public string $namespaceResultadosArquivo;
-
     public string $dirRaiz;
     public string $dirVendor;
     public string $dirSrc;
     public string $dirPhp;
+    public string $dirPhpJson;
     public string $dirJson;
     public string $dirPlanilhas;
     public string $dirResultados;
@@ -29,54 +23,75 @@ class diretorios
     public string $dirResultadosSubpasta;
     public string $dirResultadosSubpastaArquivo;
     
+    public string $namespaceRaiz;
+    public string $namespacePhp;
+    public string $namespacePhpJson;
+    public string $namespaceJson;
+    public string $namespaceResultados;
+    public string $namespaceResultadosArquivo;
     
-    public function definirDiretorios()
+    
+    public function definirDiretorios($namespaceArquivo)
     {
-        $namespaceArquivo = __NAMESPACE__;
-        $namespace = str_replace('\php\_outros', '', $namespaceArquivo);
-        $namespacePhp = $namespace . '\\php';
-        $namespacePhpJson = $namespacePhp . '\\json';
-        $namespaceJson = $namespace . '\\json';
-        $namespaceResultados = $namespacePhp . '\\_resultados';
-
-        $dirRaiz = substr(__DIR__, 0, strpos(__DIR__, '\src')) . '\\';
+        $dirRaiz = str_replace('\vendor\tarcisio\projetos-padroes\src\php\_outros', '', __DIR__) . '\\';
         $dirVendor = $dirRaiz . 'vendor\\';
         $dirSrc = $dirRaiz . 'src\\';
         $dirPhp = $dirSrc . 'php\\';
+        $dirPhpJson = $dirPhp . 'json\\';
         $dirJson = $dirSrc . 'json\\';
         $dirResultados = $dirSrc . '_resultados\\';
         $dirSql = $dirSrc . 'sql\\';
         $dirTxt = $dirSrc . 'txt\\';
         $dirPlanilhas = $dirSrc . 'planilhas\\';
         
+        $composerArquivo = $dirRaiz . 'composer.json';
 
-        $this->namespace = $namespace;
-        $this->namespacePhp = $namespacePhp;
-        $this->namespacePhpJson = $namespacePhpJson;
-        $this->namespaceJson = $namespaceJson;
-        $this->namespaceResultados = $namespaceResultados;
+        if (file_exists($composerArquivo))
+        {
+            $json = file_get_contents($composerArquivo);
+            $array = json_decode($json, true);
+            $namespaceRaiz = substr(array_keys($array['autoload']['psr-4'])[0], 0, -1);
+            $namespacePhp = $namespaceRaiz . '\\php';
+            $namespacePhpJson = $namespacePhp . '\\json';
+            $namespaceJson = $namespaceRaiz . '\\json';
+            $namespaceResultados = $namespacePhp . '\\_resultados';
+        }
+        else
+        {
+            $namespaceRaiz = "composer não encontrado";
+        }
+        
         $this->dirRaiz = $dirRaiz;
         $this->dirVendor = $dirVendor;
         $this->dirSrc = $dirSrc;
         $this->dirPhp = $dirPhp;
+        $this->dirPhpJson = $dirPhpJson;
         $this->dirJson = $dirJson;
         $this->dirResultados = $dirResultados;
         $this->dirSql = $dirSql;
         $this->dirTxt = $dirTxt;
         $this->dirPlanilhas = $dirPlanilhas;
+        $this->namespaceRaiz = $namespaceRaiz;
+        $this->namespacePhp = $namespacePhp;
+        $this->namespacePhpJson = $namespacePhpJson;
+        $this->namespaceJson = $namespaceJson;
+        $this->namespaceResultados = $namespaceResultados;
     }
 
-    function definirDiretoriosClasse($namespace, $classe)
+    function definirDiretoriosClasse($namespaceArquivo, $classeArquivo)
     {
         // Classe
-        $dirSubpasta = str_replace($this->namespacePhpJson , '', str_replace($this->namespacePhpJson . "\\", '', $namespace));
+        $dirSubpasta = str_replace($this->namespacePhpJson , '', str_replace($this->namespacePhpJson . "\\", '', $namespaceArquivo));
+        $dirSubpasta = str_replace($this->namespacePhp , '', str_replace($this->namespacePhp . "\\", '', $dirSubpasta));
+        
+        $dirSubpasta = str_replace($this->namespacePhpJson, '', str_replace($this->namespacePhpJson . "\\", '', $namespaceArquivo));
         $dirSubpasta = str_replace($this->namespacePhp , '', str_replace($this->namespacePhp . "\\", '', $dirSubpasta));
 
         if (!empty($dirSubpasta)) {
             $dirSubpasta = $dirSubpasta . '\\';
         }
 
-        $nomeClasse = str_replace($namespace . '\\', '', $classe);
+        $nomeClasse = str_replace($namespaceArquivo . '\\', '', $classeArquivo);
 
         // Pasta Json
         $dirJsonSubpasta = $this->dirJson . $dirSubpasta;

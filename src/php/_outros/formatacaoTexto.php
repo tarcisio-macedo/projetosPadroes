@@ -303,6 +303,7 @@ trait formatacaoTexto
             $texto = str_replace("&#160;", " ", $texto);
         }
 
+        $texto = str_replace('&nbsp;', " ", $texto);
         $texto = str_replace("&Aacute;", "Á", $texto);
         $texto = str_replace("&aacute;", "á", $texto);
         $texto = str_replace("&Acirc;", "Â", $texto);

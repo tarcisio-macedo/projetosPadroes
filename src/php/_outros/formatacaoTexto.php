@@ -155,7 +155,8 @@ trait formatacaoTexto
         {
             $texto = $this->converterCaracteresHTMLEmCaracteresReais($texto);
 
-
+            $texto = str_replace('&quot;', "\"", $texto);
+            
             // $texto = str_replace('&nbsp;', " ", $texto);
 
             // $texto = str_replace("&#193;", "Á", $texto);

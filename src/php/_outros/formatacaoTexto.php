@@ -80,6 +80,8 @@ trait formatacaoTexto
 
         }
 
+        $textoAuxiliar = $this->correcaoErrosPalavras($textoAuxiliar);
+        
         $resultado = $textoAuxiliar;
         return $resultado;
     }
@@ -416,7 +418,7 @@ trait formatacaoTexto
         {
             if (str_contains(strtolower($texto), "|crlf|"))
             {
-                $texto = str_replace("|crlf|", "\n", str_replace("|CRLF|", "\n",$texto));
+                $texto = str_replace("|crlf|", "\n", str_replace("|CRLF|", "\n", $texto));
             }
         }
             
@@ -425,6 +427,19 @@ trait formatacaoTexto
             $texto = "";
         }
         
+        return $texto;
+    }
+
+    function correcaoErrosPalavras($textoOriginal)
+    {
+        $texto = $textoOriginal;
+
+        $texto = str_replace('CLAÚSULA', 'CLÁUSULA', $texto);
+        $texto = str_replace('Claúsula', 'Cláusula', $texto);
+        $texto = str_replace('CLAUSULA', 'CLÁUSULA', $texto);
+        $texto = str_replace('Clausula', 'Cláusula', $texto);
+        
+
         return $texto;
     }
 }

@@ -438,8 +438,11 @@ trait formatacaoTexto
         $texto = str_replace('Claúsula', 'Cláusula', $texto);
         $texto = str_replace('CLAUSULA', 'CLÁUSULA', $texto);
         $texto = str_replace('Clausula', 'Cláusula', $texto);
+        $texto = str_replace('CLÁSULA', 'CLÁUSULA', $texto);
+        $texto = str_replace('Clásula', 'Cláusula', $texto);
+        $texto = str_replace('CALUSULA', 'CLÁUSULA', $texto);
+        $texto = str_replace('Calusula', 'Cláusula', $texto);
         
-
         return $texto;
     }
 }

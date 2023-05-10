@@ -1,6 +1,6 @@
 <?php
 
-namespace Tarcisio\ProjetosPadroes\php\_outros;
+namespace Tarcisio\ProjetosPadroes\php\_outros; 
 
 use DateTime;
 

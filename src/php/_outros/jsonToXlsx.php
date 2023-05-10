@@ -13,7 +13,7 @@ class jsonToXlsx
 
     function converterJSONParaXlsx($dirJson)
     {
-        $nomeArquivoJson = substr($dirJson, strrpos($dirJson, "/") + 1);
+        $nomeArquivoJson = substr($dirJson, strrpos($dirJson, "/") + 1); 
 
         $nomeArquivoXlsx = str_replace(".json", ".xlsx", $nomeArquivoJson);
         $dirPasta = substr($dirJson, 0, strrpos($dirJson, "/"));

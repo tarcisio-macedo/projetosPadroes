@@ -1,2 +1,2 @@
-git tag v1.0.15
-git push --tags -u origin main
+git tag v1.2.0
+git push --tags -u origin main 

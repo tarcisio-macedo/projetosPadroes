@@ -46,12 +46,16 @@ class jsonToXlsx
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Planilha');
 
         $linha = 1;
 
+
+        $ultColuna = '';
         foreach ($colunas as $nomeColuna => $letra)
         {
             $sheet->setCellValue($letra . '1', $nomeColuna);
+            $ultColuna = $letra;
         }
 
         $registros = $array;
@@ -67,6 +71,27 @@ class jsonToXlsx
                 $sheet->setCellValue($letra . $linha, $valor);
             }
         }
+
+
+        // Congelar a primeira linha 
+        $sheet->freezePane('A2');
+
+        
+        $fontStyle =
+        [
+            'font' =>
+            [
+                'size' => 10
+            ],
+            'alignment' =>
+            [
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP,
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+            ],
+        ];
+
+        $sheet->getStyle("A1:" . $ultColuna . $linha)->applyFromArray($fontStyle);
+
 
         $writer = new Xlsx($spreadsheet);
         $writer->save($dirArquivoXlsx);

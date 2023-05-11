@@ -77,13 +77,13 @@ class jsonToXlsx
 
     function encontrarUltimoArquivoModificado($dir)
     {
-        $arquivos = scandir($dirJson);
+        $arquivos = scandir($dir);
         $ultimoArquivoModificado = '';
         $dataModificacaoMaisRecente = 0;
 
         foreach ($arquivos as $arquivo)
         {
-            $caminhoCompleto = $dirJson . $arquivo;
+            $caminhoCompleto = $dir . $arquivo;
 
             if (is_file($caminhoCompleto))
             {

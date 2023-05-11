@@ -13,19 +13,28 @@ class jsonToXlsx
 
     function converterJSONParaXlsx($dirJson)
     {
-        $nomeArquivoJson = substr($dirJson, strrpos($dirJson, "/") + 1); 
+        $dirArquivoJson = $this->encontrarUltimoArquivoModificado($dirJson);
+        
+        $nomeArquivoJson = substr($dirArquivoJson, strrpos($dirArquivoJson, "/") + 1);
 
         $nomeArquivoXlsx = str_replace(".json", ".xlsx", $nomeArquivoJson);
-        $dirPasta = substr($dirJson, 0, strrpos($dirJson, "/"));
-        $dirPastaXlsx = substr($dirJson, 0, strrpos($dirPasta, "/")) . "/xlsx" . "/";
+        $dirPasta = substr($dirArquivoJson, 0, strrpos($dirArquivoJson, "/"));
+        $dirPastaXlsx = substr($dirArquivoJson, 0, strrpos($dirPasta, "/")) . "/xlsx" . "/";
 
         $dirArquivoXlsx = $dirPastaXlsx . $nomeArquivoXlsx;
 
-        $json = file_get_contents($dirJson);
-        $array = json_decode($json, true);    
+        $json = file_get_contents($dirArquivoJson);
+        $array = json_decode($json, true);
+        
         $colunas = [];
     
-        $primeiroRegistro = $array[0];
+        $primeiroRegistro = [];
+        
+        foreach ($array as $registro)
+        {
+            $primeiroRegistro = $registro;
+            break;
+        }
     
         $colunas = array_flip(array_keys($primeiroRegistro));
         
@@ -64,5 +73,31 @@ class jsonToXlsx
 
         echo 'Convertido' . PHP_EOL;
         echo 'Ver arquivo: ' . $dirArquivoXlsx . PHP_EOL;
+    }
+
+    function encontrarUltimoArquivoModificado($dir)
+    {
+        $arquivos = scandir($dirJson);
+        $ultimoArquivoModificado = '';
+        $dataModificacaoMaisRecente = 0;
+
+        foreach ($arquivos as $arquivo)
+        {
+            $caminhoCompleto = $dirJson . $arquivo;
+
+            if (is_file($caminhoCompleto))
+            {
+                $dataModificacao = filemtime($caminhoCompleto);
+
+                if ($dataModificacao > $dataModificacaoMaisRecente)
+                {
+                    $dataModificacaoMaisRecente = $dataModificacao;
+                    $ultimoArquivoModificado = $caminhoCompleto;
+                }
+            }
+        }
+
+        $dirArquivoJson = $ultimoArquivoModificado;
+        return $dirArquivoJson;
     }
 }

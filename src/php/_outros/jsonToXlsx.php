@@ -11,10 +11,41 @@ class jsonToXlsx
 {
     use formatacaoTexto;
 
-    function converterJSONParaXlsx($dirJson)
+    function __construct()
     {
-        $dirArquivoJson = $this->encontrarUltimoArquivoModificado($dirJson);
-        
+        ini_set('memory_limit', '1024M');
+    }
+
+    function converterJSONParaXlsx($dirJson, $modo)
+    {
+        // modo 'todos', 'ultimo'
+
+        if ($modo == 'todos')
+        {
+            $arquivos = scandir($dirJson);
+    
+            foreach ($arquivos as $arquivo)
+            {
+                $caminhoCompleto = $dirJson . $arquivo;
+    
+                if (is_file($caminhoCompleto))
+                {
+                    $this->gerarPlanilha($caminhoCompleto);
+                }
+            }
+        }
+        if ($modo == 'ultimo')
+        {
+            $dirArquivoJson = $this->encontrarUltimoArquivoModificado($dirJson);
+            $this->gerarPlanilha($dirArquivoJson);
+        }
+
+        echo "Finalizado!" . PHP_EOL;
+    }
+
+    function gerarPlanilha($dirCaminho)
+    {
+        $dirArquivoJson = $dirCaminho;
         $nomeArquivoJson = substr($dirArquivoJson, strrpos($dirArquivoJson, "/") + 1);
 
         $nomeArquivoXlsx = str_replace(".json", ".xlsx", $nomeArquivoJson);
@@ -96,8 +127,7 @@ class jsonToXlsx
         $writer = new Xlsx($spreadsheet);
         $writer->save($dirArquivoXlsx);
 
-        echo 'Convertido' . PHP_EOL;
-        echo 'Ver arquivo: ' . $dirArquivoXlsx . PHP_EOL;
+        echo 'Convertido: ' . $dirArquivoXlsx . PHP_EOL;
     }
 
     function encontrarUltimoArquivoModificado($dir)

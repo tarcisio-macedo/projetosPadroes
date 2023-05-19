@@ -406,6 +406,7 @@ class jsonToXlsx
         // $writer->save($dirArquivoXlsx);
         $writer->save($dirArquivoXlsxHistorico);
 
+        
         // echo 'Convertido: ' . $dirArquivoXlsx . PHP_EOL;
         echo 'Convertido: ' . str_replace('/', "\\", $dirArquivoXlsxHistorico) . PHP_EOL;
     }
